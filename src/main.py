@@ -6,7 +6,7 @@ def main():
     access_token = get_access_token()
     print("access token = " + access_token)
     main_categories = get_main_categories(access_token)
-    print(type(main_categories))
+    print(main_categories)
 
 
 

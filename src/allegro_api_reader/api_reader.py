@@ -18,7 +18,7 @@ def get_all_categories(token):
 
 def get_all_sellers_offers(token):
     try:
-        url = "https://api.allegro.pl/sale/categories"
+        url = "https://api.allegro.pl/sale/offers"
         headers = {'Authorization': 'Bearer ' + token, 'Accept': "application/vnd.allegro.public.v1+json"}
         offers_dict = (requests.get(url, headers=headers, verify=False)).json()
         return map_to_dataframe(offers_dict)

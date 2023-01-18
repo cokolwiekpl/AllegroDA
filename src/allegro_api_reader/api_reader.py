@@ -36,53 +36,108 @@ def get_category_product_parameters_by_category_id(token, category_id):
         raise SystemExit(err)
 
 
-def get_all_sellers_offers(token):
+def get_category_parameters_by_category_id(token, category_id):
+    try:
+        url = f"https://api.allegro.pl/sale/categories/{category_id}/parameters"
+        headers = {'Authorization': 'Bearer ' + token, 'Accept': "application/vnd.allegro.public.v1+json"}
+        category_parameters_dict = (requests.get(url, headers=headers, verify=False)).json()
+        return map_to_dataframe(category_parameters_dict)
+    except requests.exceptions.HTTPError as err:
+        raise SystemExit(err)
+
+
+def get_all_sellers_offers(
+        token):  # TODO nie działa {'errors': [{'code': 'AccessDenied', 'message': 'Access is denied', 'details': None, 'path': None, 'userMessage': 'Access denied. Contact the author of the application.'}]}
     try:
         url = "https://api.allegro.pl/sale/offers"
         headers = {'Authorization': 'Bearer ' + token, 'Accept': "application/vnd.allegro.public.v1+json"}
         offers_dict = (requests.get(url, headers=headers, verify=False)).json()
+        print(offers_dict)
         return map_to_dataframe(offers_dict)
     except requests.exceptions.HTTPError as err:
         raise SystemExit(err)
 
-# TODO
-# Get product parameters available in given category
-# https://api.{environment}/sale/categories/{categoryId}/product-parameters
-# Endpoint pozwoli na pobranie informacji o dostępnych parametrach produktów dla danej kategorii, co pozwoli sklepom na zrozumienie, jakie cechy charakteryzują produkty dla danej kategorii.
-#
-# Get search products results
-# https://api.{environment}/sale/products
-# Endpoint pozwoli na pobranie informacji o wynikach wyszukiwania produktów, co pozwoli sklepom na zrozumienie, jakie produkty są poszukiwane przez klientów.
-#
-# Get all data of the particular product
-# https://api.{environment}/sale/products/{productId}
-# Endpoint pozwoli na pobranie pełnych danych dotyczących danego produktu, co pozwoli sklepom na zrozumienie, jakie cechy charakteryzują produkt oraz jakie są jego ceny.
-#
-#
-# Get parameters supported by a category
-# https://api.{environment}/sale/categories/{categoryId}/parameters
-# Endpoint pozwoli na pobranie informacji o parametrach wspieranych przez dana kategorię, co pozwoli sklepom na zrozumienie, jakie cechy produktów są ważne dla klientów dla danej kategorii.
-#
-# Get the user's tags
-# https://api.{environment}/sale/offer-tags
-# Endpoint pozwoli na pobranie informacji o tagach użytkownika, co pozwoli sklepom na zrozumienie, jakie tagi są przypisane do ich produktów.
-#
-# Get tags assigned to an offer
-# https://api.{environment}/sale/offers/{offerId}/tags
-# Endpoint  pozwoli na pobranie informacji o tagach przypisanych do danej oferty, co pozwoli sklepom na zrozumienie, jakie tagi są przypisane do danego produktu.
-#
-# Get the user's list of promotions
-# https://api.{environment}/sale/loyalty/promotions
-# Endpoint pozwoli na pobranie informacji o promocjach użytkownika, co pozwoli sklepom na zrozumienie, jakie promocje są oferowane dla ich produktów.
-#
-# Get a promotion data by id
-# https://api.{environment}/sale/loyalty/promotions/{promotionId}
-# Endpoint pozwoli na pobranie informacji o konkretnej promocji na podstawie jej ID, co pozwoli sklepom na zrozumienie, jakie warunki muszą zostać spełnione, aby skorzystać z promocji.
-#
-# Get the user's orders
-# https://api.{environment}/order/checkout-forms
-# Endpoint pozwoli na pobranie informacji o zamówieniach użytkownika, co pozwoli sklepom na zrozumienie, jakie produkty zostały zamówione przez klientów.
-#
-# Get an order's details
-# https://api.{environment}/order/checkout-forms/{id}
-# Endpoint pozwoli na pobranie szczegółów dotyczących konkretnego zamówienia, co pozwoli sklepom na zrozumienie, jakie produkty zostały zamówione oraz jakie są szczegóły dotyczące dostawy i płatności.
+
+def get_offer_tags_by_offer_id(
+        token, offerId):  # TODO nie działa, error 500 xd
+    try:
+        url = f"https://api.allegro.pl/sale/offers/{offerId}/tags"
+        headers = {'Authorization': 'Bearer ' + token, 'Accept': "application/vnd.allegro.public.v1+json"}
+        offer_tags_dict = (requests.get(url, headers=headers, verify=False)).json()
+        print(offer_tags_dict)
+        return map_to_dataframe(offer_tags_dict)
+    except requests.exceptions.HTTPError as err:
+        raise SystemExit(err)
+
+
+def get_search_products_results(
+        token):  # TODO nie działa AccessDeniedException
+    try:
+        url = "https://api.allegro.pl/sale/products"
+        headers = {'Authorization': 'Bearer ' + token, 'Accept': "application/vnd.allegro.public.v1+json"}
+        products_dict = (requests.get(url, headers=headers, verify=False)).json()
+        print(products_dict)
+        return map_to_dataframe(products_dict)
+    except requests.exceptions.HTTPError as err:
+        raise SystemExit(err)
+
+
+def get_product_data_by_product_id(
+        token, productId):  # TODO nie działa AccessDeniedException
+    try:
+        url = f"https://api.allegro.pl/sale/products/{productId}"
+        headers = {'Authorization': 'Bearer ' + token, 'Accept': "application/vnd.allegro.public.v1+json"}
+        product_dict = (requests.get(url, headers=headers, verify=False)).json()
+        print(product_dict)
+        return map_to_dataframe(product_dict)
+    except requests.exceptions.HTTPError as err:
+        raise SystemExit(err)
+
+
+def get_user_list_of_promotions(
+        token):  # TODO nie działa AccessDeniedException
+    try:
+        url = "https://api.allegro.pl/sale/loyalty/promotions"
+        headers = {'Authorization': 'Bearer ' + token, 'Accept': "application/vnd.allegro.public.v1+json"}
+        promotions_dict = (requests.get(url, headers=headers, verify=False)).json()
+        print(promotions_dict)
+        return map_to_dataframe(promotions_dict)
+    except requests.exceptions.HTTPError as err:
+        raise SystemExit(err)
+
+
+def get_promotion_data_by_promotion_id(
+        token, promotionId):  # TODO nie działa AccessDeniedException
+    try:
+        url = f"https://api.allegro.pl/sale/loyalty/promotions/{promotionId}"
+        headers = {'Authorization': 'Bearer ' + token, 'Accept': "application/vnd.allegro.public.v1+json"}
+        promotion_dict = (requests.get(url, headers=headers, verify=False)).json()
+        print(promotion_dict)
+        return map_to_dataframe(promotion_dict)
+    except requests.exceptions.HTTPError as err:
+        raise SystemExit(err)
+
+
+def get_users_orders(
+        token):  # TODO nie działa EmptyUserIdException
+    try:
+        url = "https://api.allegro.pl/order/checkout-forms"
+        headers = {'Authorization': 'Bearer ' + token, 'Accept': "application/vnd.allegro.public.v1+json"}
+        orders_dict = (requests.get(url, headers=headers, verify=False)).json()
+        print(orders_dict)
+        return map_to_dataframe(orders_dict)
+    except requests.exceptions.HTTPError as err:
+        raise SystemExit(err)
+
+
+def get_order_data_by_order_id(
+        token,
+        orderID):  # TODO {'errors': [{'code': 'VALIDATION_ERROR', 'message': 'Not valid time UUID', 'details': 'Invalid value: 1', 'path': 'getCheckoutForm.id', 'userMessage': 'Not valid time UUID'}]}
+    try:
+        url = f"https://api.allegro.pl/order/checkout-forms/{orderID}"
+        headers = {'Authorization': 'Bearer ' + token, 'Accept': "application/vnd.allegro.public.v1+json"}
+        order_dict = (requests.get(url, headers=headers, verify=False)).json()
+        print(order_dict)
+        return map_to_dataframe(order_dict)
+    except requests.exceptions.HTTPError as err:
+        raise SystemExit(err)

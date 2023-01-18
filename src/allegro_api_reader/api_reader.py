@@ -1,14 +1,16 @@
 import requests
 import pandas as pd
-
+import urllib3.exceptions
 from allegro_api_reader.api_authoriser import check_token
 
-
-def map_to_dataframe(dictionary):
-    return pd.DataFrame.from_dict(dictionary)
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-def do_get_request_on_endpoint(url):
+def map_to_dataframe(dictionary: dict, orient_param: str = "columns"):
+    return pd.DataFrame.from_dict(dictionary, orient=orient_param)
+
+
+def do_get_request_on_endpoint(url: str):
     token = check_token()
     headers = {'Authorization': 'Bearer ' + token, 'Accept': "application/vnd.allegro.public.v1+json"}
     return (requests.get(url, headers=headers, verify=False)).json()
@@ -56,11 +58,12 @@ def get_all_sellers_offers():
         raise SystemExit(err)
 
 
-def get_search_products_results():  # TODO nie działa Brak wymaganych parametrów
+# Endpoint documentation: https://developer.allegro.pl/documentation#operation/getSaleProducts
+def get_search_products_results(keyword: str, language: str = "pl - PL", mode: str = ""):
     try:
-        products_dict = do_get_request_on_endpoint("https://api.allegro.pl/sale/products")
-        print(products_dict)
-        return map_to_dataframe(products_dict)
+        products_dict = do_get_request_on_endpoint(f"https://api.allegro.pl/sale/products?phrase={keyword}&language={language}&mode={mode}")
+        # print(products_dict)
+        return map_to_dataframe(products_dict, "index")
     except requests.exceptions.HTTPError as err:
         raise SystemExit(err)
 

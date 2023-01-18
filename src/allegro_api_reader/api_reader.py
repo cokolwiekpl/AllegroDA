@@ -16,6 +16,16 @@ def get_all_categories(token):
         raise SystemExit(err)
 
 
+def get_category_by_id(token, category_id):
+    try:
+        url = f"https://api.allegro.pl/sale/categories/{category_id}"
+        headers = {'Authorization': 'Bearer ' + token, 'Accept': "application/vnd.allegro.public.v1+json"}
+        category_dict = (requests.get(url, headers=headers, verify=False)).json()
+        return map_to_dataframe(category_dict)
+    except requests.exceptions.HTTPError as err:
+        raise SystemExit(err)
+
+
 def get_all_sellers_offers(token):
     try:
         url = "https://api.allegro.pl/sale/offers"

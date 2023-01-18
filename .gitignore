@@ -188,3 +188,5 @@ fabric.properties
 client_id.txt
 client_secret.txt
 token_url.txt
+code_url.txt
+access_token.txt

@@ -16,10 +16,11 @@ def do_get_request_on_endpoint(url: str):
     return (requests.get(url, headers=headers, verify=False)).json()
 
 
+# Endpoint documentation: https://developer.allegro.pl/documentation#operation/getCategoriesUsingGET
 def get_all_categories():
     try:
         categories_dict = do_get_request_on_endpoint("https://api.allegro.pl/sale/categories")
-        return map_to_dataframe(categories_dict)
+        return map_to_dataframe(categories_dict, "index")
     except requests.exceptions.HTTPError as err:
         raise SystemExit(err)
 

@@ -2,9 +2,9 @@ from src.allegro_api_reader.api_reader import *
 
 
 def test_main():
-    print("get_search_products_results")
+    print("get_search_products_results")  # ten wydaje się być przydatny
     # print(get_search_products_results("Harry Potter i Książę Półkrwi"))
-    print("get_product_data_by_product_id")
+    print("get_product_data_by_product_id")  # ten również wydaje się być przydatny
     # print(get_product_data_by_product_id("9cb104b3-33d2-4866-8a7a-a626893c746b"))
     print("get_all_categories")
     # print(get_all_categories())
@@ -14,13 +14,12 @@ def test_main():
     # print(get_product_parameters_by_category_id(1))
     print("get_category_parameters_by_category_id")
     # print(get_category_parameters_by_category_id(1))
-    print("get_all_sellers_offers") # Endpoint działa tylko na ofertach użytkownika, które sam wystawił :/
+    print("get_all_sellers_offers")  # Endpoint działa tylko na ofertach użytkownika, które sam wystawił :/
     # print(get_all_sellers_offers())
-
+    print("get_user_list_of_promotions")
+    # print(get_user_list_of_promotions())
 
     ##################
-
-
 
     #
     #
@@ -38,8 +37,8 @@ def test_main():
     #
     # print("________________")
 
-    # print("get_user_list_of_promotions")
-    # print(get_user_list_of_promotions(ACCESS_TOKEN))
+    #
+    #
     # print("________________")
     #
     # print("get_promotion_data_by_promotion_id")

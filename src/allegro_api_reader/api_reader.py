@@ -83,10 +83,10 @@ def get_product_data_by_product_id(product_id: str, language: str = "pl - PL", c
         raise SystemExit(err)
 
 
+# Endpoint documentation: https://developer.allegro.pl/documentation#operation/listSellerPromotionsUsingGET_1
 def get_user_list_of_promotions():
     try:
-        promotions_dict = do_get_request_on_endpoint("https://api.allegro.pl/sale/loyalty/promotions")
-        print(promotions_dict)
+        promotions_dict = do_get_request_on_endpoint("https://api.allegro.pl/sale/loyalty/promotions?")
         return map_to_dataframe(promotions_dict)
     except requests.exceptions.HTTPError as err:
         raise SystemExit(err)

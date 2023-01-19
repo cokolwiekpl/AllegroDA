@@ -92,10 +92,10 @@ def get_user_list_of_promotions():
         raise SystemExit(err)
 
 
+# Endpoint documentation: https://developer.allegro.pl/documentation#operation/getPromotionUsingGET
 def get_promotion_data_by_promotion_id(promotion_id):
     try:
         promotion_dict = do_get_request_on_endpoint(f"https://api.allegro.pl/sale/loyalty/promotions/{promotion_id}")
-        print(promotion_dict)
         return map_to_dataframe(promotion_dict)
     except requests.exceptions.HTTPError as err:
         raise SystemExit(err)

@@ -16,8 +16,10 @@ def test_main():
     # print(get_category_parameters_by_category_id(1))
     print("get_all_sellers_offers")  # Endpoint działa tylko na ofertach użytkownika, które sam wystawił :/
     # print(get_all_sellers_offers())
-    print("get_user_list_of_promotions")
+    print("get_user_list_of_promotions")  # Endpoint działa tylko na ofertach użytkownika, które sam wystawił :/
     # print(get_user_list_of_promotions())
+    print("get_promotion_data_by_promotion_id")  # Endpoint działa tylko na ofertach użytkownika, które sam wystawił :/
+    # print(get_promotion_data_by_promotion_id())
 
     ##################
 
@@ -41,8 +43,8 @@ def test_main():
     #
     # print("________________")
     #
-    # print("get_promotion_data_by_promotion_id")
-    # print(get_promotion_data_by_promotion_id(ACCESS_TOKEN, 1))
+    #
+    #
     # print("________________")
     #
     # print("get_users_orders")

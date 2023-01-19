@@ -10,6 +10,8 @@ def test_main():
     # print(get_category_details_by_category_id(1))
     print("get_product_parameters_by_category_id")
     # print(get_product_parameters_by_category_id(1))
+    print("get_category_parameters_by_category_id")
+    print(get_category_parameters_by_category_id(1))
 
     ##################
 

@@ -44,6 +44,7 @@ def get_product_parameters_by_category_id(category_id):
         raise SystemExit(err)
 
 
+# Endpoint documentation: https://developer.allegro.pl/documentation#operation/getCategoryUsingGET_1
 def get_category_parameters_by_category_id(category_id):
     try:
         category_parameters_dict = do_get_request_on_endpoint(f"https://api.allegro.pl/sale/categories/{category_id}/parameters")

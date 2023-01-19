@@ -2,28 +2,19 @@ from src.allegro_api_reader.api_reader import *
 
 
 def test_main():
-    print("DONE")
     print("get_search_products_results")
     # print(get_search_products_results("Harry Potter i Książę Półkrwi"))
-    # print("________________")
     print("get_all_categories")
     # print(get_all_categories())
-    # print("________________")
-
-    print("IN PROGRESS")
     print("get_category_details_by_category_id")
     # print(get_category_details_by_category_id(1))
-    # print("________________")
+    print("get_product_parameters_by_category_id")
+    # print(get_product_parameters_by_category_id(1))
 
     ##################
 
-    # print("get_category_by_category_id")
-    # print(get_category_by_category_id(ACCESS_TOKEN, 1))
-    # print("________________")
-    #
-    # print("get_category_product_parameters_by_category_id")
-    # print(get_category_product_parameters_by_category_id(ACCESS_TOKEN, 1))
-    # print("________________")
+
+
     #
     # print("get_category_parameters_by_category_id")
     # print(get_category_parameters_by_category_id(ACCESS_TOKEN, 1))

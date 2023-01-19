@@ -25,7 +25,8 @@ def get_all_categories():
         raise SystemExit(err)
 
 
-def get_category_by_category_id(category_id):
+# Endpoint documentation: https://developer.allegro.pl/documentation#operation/getCategoryUsingGET_1
+def get_category_details_by_category_id(category_id):
     try:
         category_dict = do_get_request_on_endpoint(f"https://api.allegro.pl/sale/categories/{category_id}")
         return map_to_dataframe(category_dict)

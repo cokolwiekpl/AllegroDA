@@ -20,40 +20,10 @@ def test_main():
     # print(get_user_list_of_promotions())
     print("get_promotion_data_by_promotion_id")  # Endpoint działa tylko na ofertach użytkownika, które sam wystawił :/
     # print(get_promotion_data_by_promotion_id())
-
-    ##################
-
-    #
-    #
-    # print("________________")
-    #
-    # print("get_offer_tags_by_offer_id")
-    # print(get_offer_tags_by_offer_id(ACCESS_TOKEN, 1))
-    # print("________________")
-
-    # print("get_search_products_results")
-    # print(get_search_products_results("Harry Potter i Książę Półkrwi"))
-    # print("________________")
-    #
-    #
-    #
-    # print("________________")
-
-    #
-    #
-    # print("________________")
-    #
-    #
-    #
-    # print("________________")
-    #
-    # print("get_users_orders")
+    print("get_users_orders")  # Endpoint działa tylko na ofertach użytkownika, które sam wystawił :/
     # print(get_users_orders())
-    # print("________________")
-
-    # print("get_order_data_by_order_id")
-    # print(get_order_data_by_order_id("29738e61-7f6a-11e8-ac45-09db60ede9d6"))
-    # print("________________")
+    print("get_order_data_by_order_id")  # Endpoint działa tylko na ofertach użytkownika, które sam wystawił :/
+    # print(get_order_data_by_order_id())
 
 
 def main():

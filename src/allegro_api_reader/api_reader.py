@@ -101,20 +101,21 @@ def get_promotion_data_by_promotion_id(promotion_id):
         raise SystemExit(err)
 
 
+# Endpoint documentation: https://developer.allegro.pl/documentation#operation/getListOfOrdersUsingGET
+# Endpoint only works if user is seller.
 def get_users_orders():
     try:
         orders_dict = do_get_request_on_endpoint("https://api.allegro.pl/order/checkout-forms")
-        print(orders_dict)
         return map_to_dataframe(orders_dict)
     except requests.exceptions.HTTPError as err:
         raise SystemExit(err)
 
 
-# TODO {'errors': [{'code': 'VALIDATION_ERROR', 'message': 'Not valid time UUID', 'details': 'Invalid value: 1', 'path': 'getCheckoutForm.id', 'userMessage': 'Not valid time UUID'}]}
+# Endpoint documentation: https://developer.allegro.pl/documentation#operation/getOrdersDetailsUsingGET
+# Endpoint only works if user is seller.
 def get_order_data_by_order_id(order_id):
     try:
         order_dict = do_get_request_on_endpoint(f"https://api.allegro.pl/order/checkout-forms/{order_id}")
-        print(order_dict)
         return map_to_dataframe(order_dict)
     except requests.exceptions.HTTPError as err:
         raise SystemExit(err)

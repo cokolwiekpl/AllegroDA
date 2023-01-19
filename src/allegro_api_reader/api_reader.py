@@ -53,10 +53,11 @@ def get_category_parameters_by_category_id(category_id):
         raise SystemExit(err)
 
 
+# Endpoint documentation: https://developer.allegro.pl/documentation#operation/searchOffersUsingGET
+# Endpoint only works on offers made by the user himself.
 def get_all_sellers_offers():
     try:
         offers_dict = do_get_request_on_endpoint("https://api.allegro.pl/sale/offers")
-        print(offers_dict)
         return map_to_dataframe(offers_dict)
     except requests.exceptions.HTTPError as err:
         raise SystemExit(err)

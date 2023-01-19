@@ -11,19 +11,16 @@ def test_main():
     print("get_product_parameters_by_category_id")
     # print(get_product_parameters_by_category_id(1))
     print("get_category_parameters_by_category_id")
-    print(get_category_parameters_by_category_id(1))
+    # print(get_category_parameters_by_category_id(1))
+    print("get_all_sellers_offers") # Endpoint działa tylko na ofertach użytkownika, które sam wystawił :/
+    # print(get_all_sellers_offers())
 
     ##################
 
 
 
     #
-    # print("get_category_parameters_by_category_id")
-    # print(get_category_parameters_by_category_id(ACCESS_TOKEN, 1))
-    # print("________________")
     #
-    # print("get_all_sellers_offers")
-    # print(get_all_sellers_offers(ACCESS_TOKEN))
     # print("________________")
     #
     # print("get_offer_tags_by_offer_id")

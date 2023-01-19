@@ -4,6 +4,8 @@ from src.allegro_api_reader.api_reader import *
 def test_main():
     print("get_search_products_results")
     # print(get_search_products_results("Harry Potter i Książę Półkrwi"))
+    print("get_product_data_by_product_id")
+    # print(get_product_data_by_product_id("9cb104b3-33d2-4866-8a7a-a626893c746b"))
     print("get_all_categories")
     # print(get_all_categories())
     print("get_category_details_by_category_id")
@@ -14,6 +16,7 @@ def test_main():
     # print(get_category_parameters_by_category_id(1))
     print("get_all_sellers_offers") # Endpoint działa tylko na ofertach użytkownika, które sam wystawił :/
     # print(get_all_sellers_offers())
+
 
     ##################
 
@@ -31,8 +34,8 @@ def test_main():
     # print(get_search_products_results("Harry Potter i Książę Półkrwi"))
     # print("________________")
     #
-    # print("get_product_data_by_product_id")
-    # print(get_product_data_by_product_id(1))
+    #
+    #
     # print("________________")
 
     # print("get_user_list_of_promotions")

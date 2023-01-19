@@ -73,11 +73,12 @@ def get_search_products_results(keyword: str, language: str = "pl - PL", mode: s
         raise SystemExit(err)
 
 
-def get_product_data_by_product_id(product_id):  # TODO nie działa NotFoundException
+# Endpoint documentation: https://developer.allegro.pl/documentation#operation/getSaleProduct
+def get_product_data_by_product_id(product_id: str, language: str = "pl - PL", category: str = ""):
     try:
-        product_dict = do_get_request_on_endpoint(f"https://api.allegro.pl/sale/products/{product_id}")
-        print(product_dict)
-        return map_to_dataframe(product_dict)
+        product_dict = do_get_request_on_endpoint(
+            f"https://api.allegro.pl/sale/products/{product_id}?language={language}&category.id+{category}")
+        return map_to_dataframe(product_dict, "index")
     except requests.exceptions.HTTPError as err:
         raise SystemExit(err)
 

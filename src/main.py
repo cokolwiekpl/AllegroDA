@@ -6,24 +6,22 @@ from allegro_data_analysis.product_data_analysis import get_products_data_by_nam
 
 
 def create_tabloo_button(text, relx, rely, relwidth, relheight, frame, searched_product):
-    def display_text(searched_product):
+    def display_text():
         products = get_products_data_by_name(searched_product.get())
         df_products = pd.DataFrame(products)
         tabloo.show(df_products)
 
-    button = tk.Button(frame, text=text, command=lambda: display_text(searched_product))
+    button = tk.Button(frame, text=text, command=lambda: display_text())
     button.place(relx=relx, rely=rely, relwidth=relwidth, relheight=relheight)
-
-
 
 
 def create_button(text, image_path, relx, rely, relwidth, relheight, frame):
-    button = tk.Button(frame, text=text, command=lambda: show_plot(image_path))
-    button.place(relx=relx, rely=rely, relwidth=relwidth, relheight=relheight)
-
-    def show_plot(file_path):
-        image = Image.open(file_path)
+    def show_plot():
+        image = Image.open(image_path)
         image.show()
+
+    button = tk.Button(frame, text=text, command=lambda: show_plot())
+    button.place(relx=relx, rely=rely, relwidth=relwidth, relheight=relheight)
 
 
 def main():
@@ -39,10 +37,9 @@ def main():
     frame = tk.Frame(root, bg='#ffffff')
     frame.place(relx=0.3, rely=0.20, relwidth=0.9, relheight=0.4, anchor='n')
 
-    labelSymbol = tk.Label(frame)
-    labelSymbol.place(relx=0.2, rely=0.15, relwidth=0.18, relheight=0.1)
-
-    labelSymbol.configure(text="Nazwa produktu")
+    searched_product_label = tk.Label(frame)
+    searched_product_label.place(relx=0.2, rely=0.15, relwidth=0.18, relheight=0.1)
+    searched_product_label.configure(text="Nazwa produktu")
 
     searched_product = tk.Entry(frame, font=40)
     searched_product.place(relx=0.40, rely=0.15, relwidth=0.2, relheight=0.1)

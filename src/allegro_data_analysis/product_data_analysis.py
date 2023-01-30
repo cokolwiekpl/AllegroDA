@@ -12,5 +12,3 @@ def get_products_data_by_name(name: str) -> list:
         }
         products_data_list.append(single_product_data)
     return products_data_list
-
-# TODO w tej klasie można zrobić wyświetlanie w.w. danych

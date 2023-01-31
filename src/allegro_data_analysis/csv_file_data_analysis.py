@@ -49,9 +49,6 @@ def create_plot(data_frame, group_by, plot_title, xlabel, ylabel, plot_file_name
     plt.savefig(f"resources/{plot_file_name}")
 
 
-# def month_number(month):
-#     return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].index(month) + 1
-
 
 def create_plot_of_country_profits(data_frame, top_or_bottom_countries, plot_title, plot_file_name):
     if top_or_bottom_countries == "top":
@@ -72,7 +69,7 @@ def create_plot_of_country_profits(data_frame, top_or_bottom_countries, plot_tit
     plt.savefig(f"resources/{plot_file_name}")
 
 
-def create_plot2(data_frame, category, plot_file_name):
+def create_plot_by_category(data_frame, category, plot_file_name):
     month_dict = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
     df_cat = data_frame.loc[data_frame['Product Category'] == category]
     df_cat_grouped = df_cat[['Months', 'Profit']].groupby('Months').sum().sort_values('Months', key=lambda x: x.apply(lambda x: month_dict[x]))
@@ -102,12 +99,13 @@ def generate_plots():
     create_plot_of_country_profits(df, "top", "Miesięczny dochów w 2015 w 10 krajach o największym dochodzie", 'najwiekszyDochod.png')
     create_plot_of_country_profits(df, "bottom", "Miesięczny dochów w 2015 w 10 krajach o najmniejszym dochodzie", 'najmniejszyDochod.png')
 
-    df = prepare_df()
+
+    create_plot_by_category(df, "Auto & Accessories", 'dochodSamochod.png')
+    create_plot_by_category(df, "Home & Furniture", 'dochodDom.png')
+    create_plot_by_category(df, "Fashion", 'dochodMods.png')
+    create_plot_by_category(df, "Electronic", 'dochodelektornika.png')
 
 
-    create_plot2(df, "Auto & Accessories", 'dochodSamochod.png')
-    create_plot2(df, "Home & Furniture", 'dochodelektornika.png')
-    create_plot2(df, "Fashion", 'dochodDom.png')
     df_sales_profit = df[['Months', 'Sales', 'Profit']]
     df_sales_profit.groupby('Months').sum().sort_values('Months', key=lambda x: x.apply(lambda x: month_dict[x]))
 

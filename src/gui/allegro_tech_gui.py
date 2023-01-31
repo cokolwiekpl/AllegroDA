@@ -5,7 +5,7 @@ from PIL import Image
 from allegro_data_analysis.product_data_analysis import get_products_data_by_name
 
 
-def create_tabloo_button(text, relx, rely, relwidth, relheight, frame, searched_product):
+def create_tabloo_button(text: str, relx: float, rely: float, relwidth: float, relheight: float, frame: tk.Frame, searched_product: tk.Entry):
     def display_text():
         products = get_products_data_by_name(searched_product.get())
         df_products = pd.DataFrame(products)
@@ -15,7 +15,7 @@ def create_tabloo_button(text, relx, rely, relwidth, relheight, frame, searched_
     button.place(relx=relx, rely=rely, relwidth=relwidth, relheight=relheight)
 
 
-def create_button(text, image_path, relx, rely, relwidth, relheight, frame):
+def create_button(text: str, image_path: str, relx: float, rely: float, relwidth: float, relheight: float, frame: tk.Frame):
     def show_plot():
         image = Image.open(image_path)
         image.show()

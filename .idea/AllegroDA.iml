@@ -8,4 +8,7 @@
     <orderEntry type="jdk" jdkName="Python 3.9 (AllegroDA)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="ReSTService">
+    <option name="DOC_DIR" value="C:\CodingProjects\PycharmProjects\AllegroDA\docs" />
+  </component>
 </module>

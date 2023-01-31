@@ -42,6 +42,17 @@ def prepare_df():
 
 
 def create_plot(data_frame, group_by, plot_title, xlabel, ylabel, plot_file_name):
+    """
+    Create a bar plot of count of order IDs grouped by a given column.
+
+    Parameters:
+    data_frame (DataFrame): The data frame containing the sales data.
+    group_by (str): The column to group the data by.
+    plot_title (str): The title of the plot.
+    xlabel (str): The label for the x-axis.
+    ylabel (str): The label for the y-axis.
+    plot_file_name (str): The name of the file to save the plot to.
+    """
     data_frame.groupby(data_frame[group_by])['Order ID'].count().plot(kind="bar", title=plot_title)
     plt.xticks(rotation=30, horizontalalignment="center")
     plt.xlabel(xlabel)
@@ -49,8 +60,15 @@ def create_plot(data_frame, group_by, plot_title, xlabel, ylabel, plot_file_name
     plt.savefig(f"resources/{plot_file_name}")
 
 
-
 def create_plot_of_country_profits(data_frame, top_or_bottom_countries, plot_title, plot_file_name):
+    """
+    Create a bar plot of the total profits of top or bottom 10 countries.
+    Parameters:
+    data_frame (pandas.DataFrame): DataFrame containing the sales data.
+    top_or_bottom_countries (str): Indicator to show either top or bottom 10 countries.
+    plot_title (str): The title for the plot.
+    plot_file_name (str): The name of the file to save the plot.
+    """
     if top_or_bottom_countries == "top":
         countries_list = (data_frame.groupby("Country")["Profit"].sum().reset_index()).nlargest(10, "Profit")["Country"].tolist()
     elif top_or_bottom_countries == "bottom":
@@ -70,6 +88,14 @@ def create_plot_of_country_profits(data_frame, top_or_bottom_countries, plot_tit
 
 
 def create_plot_by_category(data_frame, category, plot_file_name):
+    """
+    Create plot of profit for a given product category.
+
+    Parameters:
+    data_frame (pandas.DataFrame): The data frame containing the data.
+    category (str): The category of the product to plot.
+    plot_file_name (str): The name of the file to save the plot to.
+    """
     month_dict = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
     df_cat = data_frame.loc[data_frame['Product Category'] == category]
     df_cat_grouped = df_cat[['Months', 'Profit']].groupby('Months').sum().sort_values('Months', key=lambda x: x.apply(lambda x: month_dict[x]))
@@ -81,6 +107,14 @@ def create_plot_by_category(data_frame, category, plot_file_name):
 
 
 def generate_plots():
+    """
+    This code generates plots based on data from a dataframe df which is prepared from a function prepare_df().
+    The code creates several plots of various aspects of the data, such as total orders per quarter, total orders per month,
+    total orders by product category, monthly profits by top and bottom countries, and monthly sales vs profits.
+    It also creates plots based on different customer segments and order aging.
+    The plots are saved in various image files using the savefig method.
+    """
+
     month_dict = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
 
     df = prepare_df()
@@ -99,12 +133,10 @@ def generate_plots():
     create_plot_of_country_profits(df, "top", "Miesięczny dochów w 2015 w 10 krajach o największym dochodzie", 'najwiekszyDochod.png')
     create_plot_of_country_profits(df, "bottom", "Miesięczny dochów w 2015 w 10 krajach o najmniejszym dochodzie", 'najmniejszyDochod.png')
 
-
     create_plot_by_category(df, "Auto & Accessories", 'dochodSamochod.png')
     create_plot_by_category(df, "Home & Furniture", 'dochodDom.png')
     create_plot_by_category(df, "Fashion", 'dochodMods.png')
     create_plot_by_category(df, "Electronic", 'dochodelektornika.png')
-
 
     df_sales_profit = df[['Months', 'Sales', 'Profit']]
     df_sales_profit.groupby('Months').sum().sort_values('Months', key=lambda x: x.apply(lambda x: month_dict[x]))

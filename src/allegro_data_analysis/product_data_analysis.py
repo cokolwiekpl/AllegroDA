@@ -2,6 +2,13 @@ from allegro_api_reader.api_reader import get_search_products_results, get_categ
 
 
 def get_products_data_by_name(name: str) -> list:
+    """
+    Get product data for a given product name.
+    Parameters:
+    name (str): The name of the product to search for.
+    Returns:
+    list: A list of dictionaries containing the id, name, and category of the products matching the search.
+    """
     product_list = get_search_products_results(name)["products"]
     products_data_list = []
     for i in product_list:

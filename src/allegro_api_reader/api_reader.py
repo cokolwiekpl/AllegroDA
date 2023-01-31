@@ -13,6 +13,25 @@ def map_to_dataframe(dictionary: dict, orient_param: str) -> pd.DataFrame:
 
 
 def return_data_by_endpoint_params(data, return_data_type: str, df_orient_param: str = "columns") -> Union[pd.DataFrame, dict]:
+    """
+    This function returns either a Pandas DataFrame or a dictionary, depending on the value of the "return_data_type"
+    parameter. If the value of "return_data_type" is "df", the data is converted to a DataFrame using the
+    map_to_dataframe function and the "df_orient_param" parameter, which specifies the orientation of the data in
+    the DataFrame. If the value of "return_data_type" is "dict", the data is returned as a dictionary. If the value of
+    "return_data_type" is neither "df" nor "dict", a ValueError is raised.
+
+    Args:
+        data: The data to be returned in either a DataFrame or dictionary format.
+        return_data_type (str): The desired format for the returned data. Must be either "df" or "dict".
+        df_orient_param (str, optional): The orientation of the data in the DataFrame. Default value is "columns".
+
+    Returns:
+        Union[pd.DataFrame, dict]: The data in either a DataFrame or dictionary format, depending on the value of
+                                    the "return_data_type" parameter.
+
+    Raises:
+        ValueError: If the value of "return_data_type" is not "df" or "dict".
+    """
     if return_data_type == "df":
         return map_to_dataframe(data, df_orient_param)
     elif return_data_type == "dict":
@@ -22,6 +41,15 @@ def return_data_by_endpoint_params(data, return_data_type: str, df_orient_param:
 
 
 def do_request_get_on_endpoint(url: str) -> dict:
+    """
+     Make a GET request to the specified endpoint with authorization header.
+
+     Parameters:
+     url (str): The URL endpoint to be accessed.
+
+     Returns:
+     dict: The response of the GET request as a dictionary.
+     """
     token = check_token()
     headers = {'Authorization': 'Bearer ' + token, 'Accept': "application/vnd.allegro.public.v1+json"}
     return (requests.get(url, headers=headers, verify=False)).json()

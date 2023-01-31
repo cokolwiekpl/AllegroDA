@@ -15,6 +15,16 @@ TOKEN_URL = "https://allegro.pl/auth/oauth/token"
 
 
 def get_code() -> requests.Response:
+    """
+       This function sends a POST request to the CODE_URL containing data in the "application/x-www-form-urlencoded" format
+       with the client_id in the payload and the Content-type in the headers. The request is authenticated with the
+       CLIENT_ID and CLIENT_SECRET.
+
+       If the request results in an HTTPError, the error is caught and the system is exited.
+
+       Returns:
+           requests.Response: The response from the API call.
+       """
     try:
         payload = {'client_id': CLIENT_ID}
         headers = {'Content-type': 'application/x-www-form-urlencoded'}
@@ -25,6 +35,20 @@ def get_code() -> requests.Response:
 
 
 def get_access_token(device_code: str) -> requests.Response:
+    """
+       This function sends a POST request to the TOKEN_URL to retrieve an access token. The request contains
+       data in the "application/x-www-form-urlencoded" format with the grant_type set to
+       "urn:ietf:params:oauth:grant-type:device_code" and the device_code provided as a parameter. The request is
+       authenticated with the CLIENT_ID and CLIENT_SECRET.
+
+       If the request results in an HTTPError, the error is caught and the system is exited.
+
+       Args:
+           device_code (str): The device code used to retrieve the access token.
+
+       Returns:
+           requests.Response: The response from the API call, which includes the access token.
+       """
     try:
         headers = {'Content-type': 'application/x-www-form-urlencoded'}
         data = {'grant_type': 'urn:ietf:params:oauth:grant-type:device_code', 'device_code': device_code}
@@ -35,6 +59,19 @@ def get_access_token(device_code: str) -> requests.Response:
 
 
 def await_for_access_token(interval: int, device_code: str) -> str:
+    """
+        This function retrieves the access token by repeatedly sending a request to the TOKEN_URL. The function waits for
+        a specified interval before sending the next request. If the response from the API call contains an error, the
+        function adjusts the interval accordingly. The function continues to request the access token until the response
+        is successful or access is denied.
+
+        Args:
+            interval (int): The initial interval, in seconds, between API calls.
+            device_code (str): The device code used to retrieve the access token.
+
+        Returns:
+            str: The access token.
+        """
     while True:
         time.sleep(interval)
         result_access_token = get_access_token(device_code)

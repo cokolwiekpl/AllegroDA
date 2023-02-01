@@ -5,7 +5,7 @@ from PIL import Image
 from allegro_data_analysis.product_data_analysis import get_products_data_by_name
 
 
-def create_tabloo_button(text: str, relx: float, rely: float, relwidth: float, relheight: float, frame: tk.Frame, searched_product: tk.Entry, root: tk.Tk):
+def create_tabloo_button(text: str, relx: float, rely: float, relwidth: float, relheight: float, frame: tk.Frame, searched_product: tk.Entry):
     """
     Create a button widget in a tkinter frame that displays a table using the tabloo library.
     Parameters:
@@ -22,10 +22,12 @@ def create_tabloo_button(text: str, relx: float, rely: float, relwidth: float, r
         """
         Display a table of products using the tabloo library.
         """
-        products = get_products_data_by_name(searched_product.get())
-        open("resources/access_token.txt", "w").write('')
-        df_products = pd.DataFrame(products)
-        tabloo.show(df_products)
+        if not searched_product.get().isspace() and searched_product.get() != '':
+            print(searched_product.get().strip())
+            products = get_products_data_by_name(searched_product.get().strip())
+            open("resources/access_token.txt", "w").write('')
+            df_products = pd.DataFrame(products)
+            tabloo.show(df_products)
 
     button = tk.Button(frame, text=text, command=lambda: display_text())
     button.place(relx=relx, rely=rely, relwidth=relwidth, relheight=relheight)
@@ -82,22 +84,24 @@ def create_gui():
     searched_product = tk.Entry(frame, font=40)
     searched_product.place(relx=0.40, rely=0.15, relwidth=0.2, relheight=0.1)
 
-    create_tabloo_button("Wyświetl listę produktów", relx=0.40, rely=0.30, relwidth=0.2, relheight=0.1, frame=frame, searched_product=searched_product, root=root)
-    create_button("Ilość w danym kwartale", "resources/plots/ZamowieniaKwartal.png", relx=0.7, rely=0.15, relwidth=0.2, relheight=0.1, frame=frame)
-    create_button("Ilość w danym kwartale", "resources/plots/zamowieniaMiesiac.png", relx=0.7, rely=0.25, relwidth=0.2, relheight=0.1, frame=frame)
-    create_button("10 Krajów o największym dochodzie", "resources/plots/najwiekszyDochod.png", relx=0.7, rely=0.35, relwidth=0.2, relheight=0.1, frame=frame)
-    create_button("10 Krajów o najmniejszym dochodzie", "resources/plots/najmniejszyDochod.png", relx=0.7, rely=0.45, relwidth=0.2, relheight=0.10, frame=frame)
-    create_button("Kategorie prduktów", "resources/plots/zamowieniaKategorie.png", relx=0.7, rely=0.55, relwidth=0.2, relheight=0.1, frame=frame)
-    create_button("Dochody kategoria Auto", "resources/plots/dochodSamochod.png", relx=0.7, rely=0.65, relwidth=0.2, relheight=0.1, frame=frame)
-    create_button("Dochody kategoria Elektronika", "resources/plots/dochodelektornika.png", relx=0.7, rely=0.75, relwidth=0.2, relheight=0.10, frame=frame)
-    create_button("Dochody kategoria Moda", "resources/plots/dochodMods.png", relx=0.7, rely=0.85, relwidth=0.2, relheight=0.1, frame=frame)
-    create_button("Dochody kategoria Dom", "resources/plots/dochodDom.png", relx=0.4, rely=0.50, relwidth=0.2, relheight=0.1, frame=frame)
-    create_button("Miesięczna sprzedaż i dochód", "resources/plots/sprzedazDochod.png", relx=0.4, rely=0.60, relwidth=0.2, relheight=0.10, frame=frame)
-    create_button("Dochody z poszczególnych sewktorów klientów", "resources/plots/dochodSegment.png", relx=0.4, rely=0.70, relwidth=0.2, relheight=0.1, frame=frame)
-    create_button("Historgram dla dochodów z segmentów", "resources/plots/segmentyHistohram.png", relx=0.4, rely=0.80, relwidth=0.2, relheight=0.10, frame=frame)
-    create_button("Średni czas oczekiwania na wysyłkę", "resources/plots/sredniaAgign.png", relx=0.4, rely=0.90, relwidth=0.2, relheight=0.10, frame=frame)
+    path = "resources/plots/"
+
+    create_tabloo_button("Wyświetl listę produktów", relx=0.35, rely=0.30, relwidth=0.3, relheight=0.06, frame=frame, searched_product=searched_product)
+    create_button("Ilość w danym kwartale", f"{path}ZamowieniaKwartal.png", relx=0.75, rely=0.08, relwidth=0.2, relheight=0.06, frame=frame)
+    create_button("Kategorie produktów", f"{path}zamowieniaKategorie.png", relx=0.75, rely=0.16, relwidth=0.2, relheight=0.06, frame=frame)
+    create_button("Dochody kategoria Auto", f"{path}dochodSamochod.png", relx=0.75, rely=0.24, relwidth=0.2, relheight=0.06, frame=frame)
+    create_button("Dochody kategoria Elektronika", f"{path}dochodelEktornika.png", relx=0.75, rely=0.32, relwidth=0.2, relheight=0.060, frame=frame)
+    create_button("Dochody kategoria Moda", f"{path}dochodMods.png", relx=0.75, rely=0.40, relwidth=0.2, relheight=0.06, frame=frame)
+    create_button("Dochody kategoria Dom", f"{path}dochodDom.png", relx=0.75, rely=0.48, relwidth=0.2, relheight=0.06, frame=frame)
+    create_button("Miesięczna sprzedaż i dochód", f"{path}sprzedazDochod.png", relx=0.75, rely=0.56, relwidth=0.2, relheight=0.060, frame=frame)
+    create_button("Korelacja między zmiennymi", f"{path}korelacja.png", relx=0.75, rely=0.64, relwidth=0.2, relheight=0.060, frame=frame)
+    create_button("10 Krajów o największym dochodzie", f"{path}najwiekszyDochod.png", relx=0.35, rely=0.45, relwidth=0.3, relheight=0.06, frame=frame)
+    create_button("10 Krajów o najmniejszym dochodzie", f"{path}najmniejszyDochod.png", relx=0.35, rely=0.53, relwidth=0.3, relheight=0.060, frame=frame)
+    create_button("Dochody z poszczególnych sewktorów klientów", f"{path}dochodSegment.png", relx=0.35, rely=0.61, relwidth=0.3, relheight=0.06, frame=frame)
+    create_button("Historgram dla dochodów z segmentów", f"{path}segmentyHistohram.png", relx=0.35, rely=0.69, relwidth=0.3, relheight=0.060, frame=frame)
+    create_button("Średni czas oczekiwania na wysyłkę", f"{path}sredniaAgign.png", relx=0.35, rely=0.77, relwidth=0.3, relheight=0.060, frame=frame)
+    create_button("Dochód i Koszt wysyłki, a regresja liniowa", f"{path}proftCostReg.png", relx=0.35, rely=0.85, relwidth=0.3, relheight=0.060, frame=frame)
 
     imagebox = tk.Label(root)
     imagebox.pack()
     root.mainloop()
-    print("test2")

@@ -4,8 +4,6 @@ import tkinter as tk
 from PIL import Image
 from allegro_data_analysis.product_data_analysis import get_products_data_by_name
 
-IS_BUTTON_CLICKED = False
-
 
 def create_tabloo_button(text: str, relx: float, rely: float, relwidth: float, relheight: float, frame: tk.Frame, searched_product: tk.Entry, root: tk.Tk):
     """
@@ -33,7 +31,6 @@ def create_tabloo_button(text: str, relx: float, rely: float, relwidth: float, r
     button.place(relx=relx, rely=rely, relwidth=relwidth, relheight=relheight)
 
 
-
 def create_button(text: str, image_path: str, relx: float, rely: float, relwidth: float, relheight: float, frame: tk.Frame):
     """
     Create a button widget in a tkinter frame.
@@ -58,8 +55,6 @@ def create_button(text: str, image_path: str, relx: float, rely: float, relwidth
     button.place(relx=relx, rely=rely, relwidth=relwidth, relheight=relheight)
 
 
-
-
 def create_gui():
     """
     This function creates the GUI for the Allegro Tech application.
@@ -78,7 +73,7 @@ def create_gui():
     background_label.place(relwidth=1, relheight=1)
 
     frame = tk.Frame(root, bg='#ffffff')
-    frame.place(relx=0.3, rely=0.20, relwidth=0.9, relheight=0.4, anchor='n')
+    frame.place(relx=0.3, rely=0.20, relwidth=0.9, relheight=0.6, anchor='n')
 
     searched_product_label = tk.Label(frame)
     searched_product_label.place(relx=0.2, rely=0.15, relwidth=0.18, relheight=0.1)

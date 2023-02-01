@@ -45,6 +45,15 @@ def prepare_df():
 
 
 def create_plot(title: str, xlabel: str, ylabel: str, plot_file_name: str):
+    """
+    Create a Matplotlib plot with the given title, x-axis label, y-axis label, and save it to a file.
+
+    Parameters:
+    title (str): The title for the plot.
+    xlabel (str): The label for the x-axis.
+    ylabel (str): The label for the y-axis.
+    plot_file_name (str): The name of the file to save the plot to, under the `resources/plots/` directory.
+    """
     plt.title(title)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
@@ -52,7 +61,7 @@ def create_plot(title: str, xlabel: str, ylabel: str, plot_file_name: str):
     plt.clf()
 
 
-def create_plot_by_order_id(data_frame: pd.DataFrame, group_by, plot_title: str, xlabel: str, ylabel: str, plot_file_name: str):
+def create_plot_by_order_id(data_frame: pd.DataFrame, group_by: str, plot_title: str, xlabel: str, ylabel: str, plot_file_name: str):
     """
     Create a bar plot of count of order IDs grouped by a given column.
 

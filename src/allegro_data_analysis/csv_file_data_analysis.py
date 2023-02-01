@@ -58,6 +58,7 @@ def create_plot(data_frame, group_by, plot_title, xlabel, ylabel, plot_file_name
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.savefig(f"resources/{plot_file_name}")
+    plt.clf()
 
 
 def create_plot_of_country_profits(data_frame, top_or_bottom_countries, plot_title, plot_file_name):
@@ -85,6 +86,7 @@ def create_plot_of_country_profits(data_frame, top_or_bottom_countries, plot_tit
     plt.tight_layout()
     plt.subplots_adjust(bottom=0.1)
     plt.savefig(f"resources/{plot_file_name}")
+    plt.clf()
 
 
 def create_plot_by_category(data_frame, category, plot_file_name):
@@ -104,6 +106,7 @@ def create_plot_by_category(data_frame, category, plot_file_name):
     title = f"Dochód z sprzedaży produktów z kategorii '{category}'"
     sns.lineplot(x='Months', y='Profit', data=df_cat_grouped).set(title=title, xlabel="Miesiąc", ylabel="Dochód")
     plt.savefig(f"resources/{plot_file_name}")
+    plt.clf()
 
 
 def generate_plots():
@@ -120,45 +123,48 @@ def generate_plots():
     df = prepare_df()
     create_plot(
         data_frame=df, group_by='Quarter', plot_title="Ilość zamówień w danym kwartale",
-        xlabel="Kwartał", ylabel="Zamówienia", plot_file_name='ZamowieniaKwartal.png')
+        xlabel="Kwartał", ylabel="Zamówienia", plot_file_name='../resources/plots/ZamowieniaKwartal.png')
 
     create_plot(
         data_frame=df, group_by='Months', plot_title="Ilość zamówień w danym miesiącu na skale globaln",
-        xlabel="Miesiąc", ylabel="Zamówienia", plot_file_name='zamowieniaMiesiac.png')
+        xlabel="Miesiąc", ylabel="Zamówienia", plot_file_name='../resources/plots/zamowieniaMiesiac.png')
 
     create_plot(
         data_frame=df, group_by='Product Category', plot_title="Ilość produktów z poszczególnej kategorii",
-        xlabel="Kategoria produktu", ylabel="Ilość zamówień", plot_file_name='zamowieniaKategorie.png')
+        xlabel="Kategoria produktu", ylabel="Ilość zamówień", plot_file_name='../resources/plots/zamowieniaKategorie.png')
 
-    create_plot_of_country_profits(df, "top", "Miesięczny dochów w 2015 w 10 krajach o największym dochodzie", 'najwiekszyDochod.png')
-    create_plot_of_country_profits(df, "bottom", "Miesięczny dochów w 2015 w 10 krajach o najmniejszym dochodzie", 'najmniejszyDochod.png')
+    create_plot_of_country_profits(df, "top", "Miesięczny dochów w 2015 w 10 krajach o największym dochodzie", '../resources/plots/najwiekszyDochod.png')
+    create_plot_of_country_profits(df, "bottom", "Miesięczny dochów w 2015 w 10 krajach o najmniejszym dochodzie", '../resources/plots/najmniejszyDochod.png')
 
-    create_plot_by_category(df, "Auto & Accessories", 'dochodSamochod.png')
-    create_plot_by_category(df, "Home & Furniture", 'dochodDom.png')
-    create_plot_by_category(df, "Fashion", 'dochodMods.png')
-    create_plot_by_category(df, "Electronic", 'dochodelektornika.png')
+    create_plot_by_category(df, "Auto & Accessories", '../resources/plots/dochodSamochod.png')
+    create_plot_by_category(df, "Home & Furniture", '../resources/plots/dochodDom.png')
+    create_plot_by_category(df, "Fashion", '../resources/plots/dochodMods.png')
+    create_plot_by_category(df, "Electronic", '../resources/plots/dochodelektornika.png')
 
+    month_dict = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
     df_sales_profit = df[['Months', 'Sales', 'Profit']]
-    df_sales_profit.groupby('Months').sum().sort_values('Months', key=lambda x: x.apply(lambda x: month_dict[x]))
-
+    df_sales_profit.groupby('Months').sum().sort_values('Months', key=lambda x: x.apply(lambda x: month_dict[x])).plot.bar()
     plt.title("Przyrównanie miesięcznej sprzedaży do przychodu")
     plt.xlabel("Miesiąc")
     plt.ylabel("$")
-    plt.savefig('resources/sprzedazDochod.png')
+    plt.savefig('resources/plots/sprzedazDochod.png')
+    plt.clf()
 
     df_segment = df[['Segment', 'Profit']]
     df_segment.groupby(['Segment'])['Profit'].count().plot(kind="bar", title="Przychod dla danego semgmentu klientów")
     plt.xticks(horizontalalignment="center")
     plt.xlabel("Segment")
     plt.ylabel("Dochód w $")
-    plt.savefig('resources/dochodSegment.png')
+    plt.savefig('resources/plots/dochodSegment.png')
+    plt.clf()
 
     df = df.sort_values('Months', key=lambda x: x.apply(lambda x: month_dict[x]))
 
     df_segment = df[['Months', 'Segment', 'Profit']]
     sns.histplot(data=df_segment, x="Months", hue="Segment", multiple="stack").set(title="Dochód generowany przez poszczególne segmnety", xlabel='Miesiąc',
                                                                                    ylabel='Dochód')
-    plt.savefig('resources/segmentyHistohram.png')
+    plt.savefig('resources/plots/segmentyHistohram.png')
+    plt.clf()
 
     sns.boxplot(x="Months",
                 y="Aging",
@@ -166,4 +172,7 @@ def generate_plots():
     plt.ylabel("Ilość dni", size=14)
     plt.xlabel("Miesiąc", size=14)
     plt.title("Średni czas oczekiwania zamówienia na wysyłkę w danym miesiącu", size=18)
-    plt.savefig("resources/sredniaAgign.png")
+    plt.savefig("resources/plots/sredniaAgign.png")
+    plt.clf()
+
+
